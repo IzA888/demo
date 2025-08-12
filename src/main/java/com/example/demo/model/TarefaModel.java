@@ -2,8 +2,6 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
-import java.util.UUID;
 
 @Entity
 @Table(name = "TB_TAREFA")
@@ -11,23 +9,37 @@ import java.util.UUID;
 public class TarefaModel implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Column(name = "nome")
     private String nome;
 
+    @Column(name = "descricao")
     private String descricao;
 
     @Column(name = "dt_criacao")
-    private Date criado;
+    private String criado;
 
-    private boolean completo;
+    @Column(name = "completo")
+    private Boolean completo;
 
-    public UUID getId() {
+    public TarefaModel(){}
+    
+    public TarefaModel(Long id, String nome, String descricao, String criado, Boolean completo){
+        this.id = id;
+        this.nome = nome;
+        this.descricao = descricao;
+        this.criado = criado;
+        this.completo = completo;    
+    }
+
+    
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -47,19 +59,19 @@ public class TarefaModel implements Serializable {
         this.descricao = descricao;
     }
 
-    public Date getCriado() {
+    public String getCriado() {
         return criado;
     }
 
-    public void setCriado(Date criado) {
+    public void setCriado(String criado) {
         this.criado = criado;
     }
 
-    public boolean isCompleto() {
+    public Boolean getCompleto() {
         return completo;
     }
 
-    public void setCompleto(boolean completo) {
+    public void setCompleto(Boolean completo) {
         this.completo = completo;
     }
 
