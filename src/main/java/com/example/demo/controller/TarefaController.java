@@ -50,6 +50,7 @@ public class TarefaController<UUID> {
     public ResponseEntity<TarefaDto> postTarefa(@RequestBody @Valid TarefaDto tarefaDto) {
         tarefaDto.setCriado(LocalDateTime.now(ZoneId.systemDefault()).toString());
         TarefaModel tarefaModel = TarefaRestFactory.toEntity(tarefaDto);
+        System.out.println(tarefaDto);
             return ResponseEntity.status(HttpStatus.CREATED).body(TarefaRestFactory.toDto(tarefaService.save(tarefaModel)));
     }
 
