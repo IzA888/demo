@@ -1,0 +1,45 @@
+package com.example.demo.services;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.example.demo.model.UserModel;
+import com.example.demo.repository.UserRepository;
+
+import jakarta.transaction.Transactional;
+
+@Service
+public class UserService implements UserDetailsService{
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Transactional
+    public UserModel save(UserModel UserModel) {
+        return userRepository.save(UserModel);
+    }
+
+    public Optional<UserModel> findById(Long id) {
+        return userRepository.findById(id);
+    }
+
+    @Override
+    public UserModel loadUserByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new RuntimeException("User not found: " + username));
+    }
+
+    public void delete(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    public Object encodePassword(String password) {
+        return new BCryptPasswordEncoder().encode(password);
+    }
+
+    
+}

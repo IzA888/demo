@@ -2,9 +2,7 @@ package com.example.demo.controller;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Optional;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +20,6 @@ import com.example.demo.model.TarefaModel;
 import com.example.demo.repository.TarefaRepository;
 import com.example.demo.services.TarefaService;
 
-import io.micrometer.core.ipc.http.HttpSender.Response;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PutMapping;
 

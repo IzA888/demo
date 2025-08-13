@@ -1,0 +1,34 @@
+package com.example.demo.configs;
+
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+
+
+@Configuration
+public class WebSecurityConfiguration {
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(csrf -> csrf.disable())
+            .authorizeHttpRequests((authz) -> authz
+            .requestMatchers("/user").permitAll()
+            .requestMatchers("/user/**").permitAll()
+            .requestMatchers("/tarefa").authenticated()
+            .requestMatchers("/tarefa/**").authenticated()
+            //.anyRequest().authenticated()
+            )
+            .logout(logout -> logout.permitAll());
+        return http.build();
+    }
+
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+  //      return new BCryptPasswordEncoder();
+    //}
+}

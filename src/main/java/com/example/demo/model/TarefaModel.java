@@ -34,7 +34,19 @@ public class TarefaModel implements Serializable {
         this.completo = completo;    
     }
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_user")
+    private UserModel user;
+
     
+    public UserModel getUser() {
+        return user;
+    }
+
+    public void setUser(UserModel user) {
+        this.user = user;
+    }
+
     public Long getId() {
         return id;
     }
