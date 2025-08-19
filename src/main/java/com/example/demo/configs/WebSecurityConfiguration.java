@@ -16,14 +16,15 @@ public class WebSecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .csrf(csrf -> csrf.disable())
-            .authorizeHttpRequests((authz) -> authz
-            .requestMatchers("/user").permitAll()
-            .requestMatchers("/user/**").permitAll()
-            .requestMatchers("/tarefa").authenticated()
-            .requestMatchers("/tarefa/**").authenticated()
-            //.anyRequest().authenticated()
-            )
-            .logout(logout -> logout.permitAll());
+            .authorizeHttpRequests(authz -> authz
+                .anyRequest().permitAll() // Allow all requests without authentication
+            );
+        //.formLogin(form -> form
+        //    .loginPage("/login") // Specify custom login page
+        //    .defaultSuccessUrl("/home", true) // Redirect after successful login
+        //    .permitAll()
+        //)
+        //.logout(logout -> logout.permitAll());
         return http.build();
     }
 

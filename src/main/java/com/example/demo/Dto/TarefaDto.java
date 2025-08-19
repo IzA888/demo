@@ -1,5 +1,8 @@
 package com.example.demo.Dto;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 import org.springframework.validation.annotation.Validated;
 
 import jakarta.validation.constraints.Size;
@@ -19,6 +22,10 @@ public class TarefaDto {
     private String nome;
 
     private String descricao;
+    
+    private Date data;
+    
+    private Double duracao;
     
     @Size(max = 8)
     private String criado;

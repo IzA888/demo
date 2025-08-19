@@ -37,6 +37,14 @@ public class UserService implements UserDetailsService{
         userRepository.deleteById(id);
     }
 
+    public boolean existsByUsername(String username) {
+        return userRepository.findByUsername(username).isPresent();
+    }
+
+    public Boolean passwordMatches(String rawPassword, String encodedPassword) {
+        return new BCryptPasswordEncoder().matches(rawPassword, encodedPassword);
+    }
+
     public Object encodePassword(String password) {
         return new BCryptPasswordEncoder().encode(password);
     }

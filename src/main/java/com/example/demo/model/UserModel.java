@@ -48,6 +48,7 @@ public class UserModel implements UserDetails, Serializable {
     @Override
     public String getPassword() {
         return this.senha;
+        
     }
 
     @Override

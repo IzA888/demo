@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,8 @@ import com.example.demo.services.TarefaService;
 
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
@@ -48,16 +51,22 @@ public class TarefaController<UUID> {
 
     @PostMapping
     public ResponseEntity<TarefaDto> postTarefa(@RequestBody @Valid TarefaDto tarefaDto) {
-        tarefaDto.setCriado(LocalDateTime.now(ZoneId.systemDefault()).toString());
         TarefaModel tarefaModel = TarefaRestFactory.toEntity(tarefaDto);
-        System.out.println(tarefaDto);
+
             return ResponseEntity.status(HttpStatus.CREATED).body(TarefaRestFactory.toDto(tarefaService.save(tarefaModel)));
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<TarefaDto> getTarefa(@PathVariable Long id){
-        return ResponseEntity.ok().body(TarefaRestFactory.toDto(tarefaService.findById(id)));
+//    @GetMapping("/{id}")
+//    public ResponseEntity<TarefaDto> getTarefa(@PathVariable Long id){
+//        return ResponseEntity.ok().body(TarefaRestFactory.toDto(tarefaService.findById(id)));
+//    }
+
+
+    @GetMapping("{nome}")
+    public ResponseEntity<TarefaDto> getTarefaNome(@PathVariable String nome) {
+        return ResponseEntity.ok().body(TarefaRestFactory.toDto(tarefaService.findTarefaByNome(nome))) ;
     }
+    
 
     @PutMapping("/{id}")
     public ResponseEntity<TarefaDto> putTarefa(@PathVariable Long id, @RequestBody @Valid TarefaDto tarefaDto) {
@@ -73,8 +82,6 @@ public class TarefaController<UUID> {
         return ResponseEntity.ok("APAGADO");
         
     }
-    
-    
     
 
 }
