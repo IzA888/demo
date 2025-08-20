@@ -2,9 +2,14 @@ package com.example.demo.controller;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -52,8 +57,7 @@ public class TarefaController<UUID> {
     @PostMapping
     public ResponseEntity<TarefaDto> postTarefa(@RequestBody @Valid TarefaDto tarefaDto) {
         TarefaModel tarefaModel = TarefaRestFactory.toEntity(tarefaDto);
-
-            return ResponseEntity.status(HttpStatus.CREATED).body(TarefaRestFactory.toDto(tarefaService.save(tarefaModel)));
+        return ResponseEntity.status(HttpStatus.CREATED).body(TarefaRestFactory.toDto(tarefaService.save(tarefaModel)));
     }
 
 //    @GetMapping("/{id}")
@@ -65,6 +69,14 @@ public class TarefaController<UUID> {
     @GetMapping("{nome}")
     public ResponseEntity<TarefaDto> getTarefaNome(@PathVariable String nome) {
         return ResponseEntity.ok().body(TarefaRestFactory.toDto(tarefaService.findTarefaByNome(nome))) ;
+    }
+
+    @GetMapping(path = "/getTarefaByDay")
+    public ResponseEntity<TarefaDto> getTarefaByDay(@RequestParam("date")
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date) {
+        List<TarefaModel> tarefaModel = (tarefaService.findByDate(date.atZone(ZoneId.systemDefault()).toLocalDateTime()));
+        return ResponseEntity.ok().body(TarefaRestFactory.toDto(tarefaModel));
+
     }
     
 
@@ -82,6 +94,33 @@ public class TarefaController<UUID> {
         return ResponseEntity.ok("APAGADO");
         
     }
+
+    @GetMapping("/agora")
+    public String getMethodName() {
+        Locale brasil = new Locale("pt", "BR");
+        TimeZone zonaSaoPaulo = TimeZone.getTimeZone("America/Sao_Paulo");
+        Calendar rightNow = Calendar.getInstance(zonaSaoPaulo);
+        return rightNow.getTime().toString();
+    }
+
+    @GetMapping("/mes")
+    public String getMethodName2() {
+        Locale brasil = new Locale("pt", "BR");
+        TimeZone zonaSaoPaulo = TimeZone.getTimeZone("America/Sao_Paulo");
+        Calendar mes = Calendar.getInstance(zonaSaoPaulo);
+        mes.getTime();
+        return mes.getDisplayName(Calendar.MONTH, Calendar.LONG, brasil).toString();
+    }
+
+    @GetMapping("/dia")
+    public String getMethodName3() {
+        Locale brasil = new Locale("pt", "BR");
+        TimeZone zonaSaoPaulo = TimeZone.getTimeZone("America/Sao_Paulo");
+        Calendar dia = Calendar.getInstance(zonaSaoPaulo);
+        dia.getTime();
+        return dia.getDisplayName(Calendar.DAY_OF_MONTH, Calendar.LONG, brasil);
+    }
+    
     
 
 }

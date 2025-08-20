@@ -2,7 +2,9 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -24,7 +26,7 @@ public class TarefaModel implements Serializable {
 
     @Column(name = "data")
     @JsonFormat(pattern = "dd-MM-yyyy")
-    private Date data;
+    private LocalDateTime data;
 
     @Column(name = "duracao")
     private Double duracao;
@@ -37,7 +39,7 @@ public class TarefaModel implements Serializable {
 
     public TarefaModel(){}
     
-    public TarefaModel(Long id, String nome, String descricao, Date data, Double duracao, String criado, Boolean completo){
+    public TarefaModel(Long id, String nome, String descricao, LocalDateTime data, Double duracao, String criado, Boolean completo){
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -84,11 +86,11 @@ public class TarefaModel implements Serializable {
         this.descricao = descricao;
     }
 
-    public Date getdata() {
+    public LocalDateTime getdata() {
         return data;
     }
 
-    public void setdata(Date data) {
+    public void setdata(LocalDateTime data) {
         this.data = data;
     }
 

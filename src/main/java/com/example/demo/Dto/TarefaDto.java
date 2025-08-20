@@ -23,7 +23,7 @@ public class TarefaDto {
 
     private String descricao;
     
-    private Date data;
+    private LocalDateTime data;
     
     private Double duracao;
     

@@ -1,7 +1,7 @@
 package com.example.demo.repository;
 
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -15,7 +15,7 @@ public interface TarefaRepository extends JpaRepository<TarefaModel, Long> {
     
     Optional<TarefaModel> findByNome(String nome);
 
-    Optional<TarefaModel> findByData(Date data);
+    List<TarefaModel> findByData(LocalDateTime data);
 
     List<TarefaModel> findAll();
 
