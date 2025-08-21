@@ -75,7 +75,11 @@ public class TarefaController<UUID> {
     public ResponseEntity<TarefaDto> getTarefaByDay(@RequestParam("date")
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date) {
         List<TarefaModel> tarefaModel = (tarefaService.findByDate(date.atZone(ZoneId.systemDefault()).toLocalDateTime()));
-        return ResponseEntity.ok().body(TarefaRestFactory.toDto(tarefaModel));
+        Integer dia = date.getDayOfMonth();
+        tarefaModel.stream()
+            .filter(tarefa -> tarefa.getdata().getDayOfMonth() == dia)
+            .forEach(System.out::println);
+        return ResponseEntity.ok().body(TarefaRestFactory.toDto(tarefaModel.listIterator().next()));
 
     }
     

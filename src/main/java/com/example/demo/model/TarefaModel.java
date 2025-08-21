@@ -25,7 +25,7 @@ public class TarefaModel implements Serializable {
     private String descricao;
 
     @Column(name = "data")
-    @JsonFormat(pattern = "dd-MM-yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy'T'HH:mm:ss")
     private LocalDateTime data;
 
     @Column(name = "duracao")
