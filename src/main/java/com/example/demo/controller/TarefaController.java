@@ -1,12 +1,15 @@
 package com.example.demo.controller;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.temporal.WeekFields;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -72,15 +75,41 @@ public class TarefaController<UUID> {
     }
 
     @GetMapping(path = "/getTarefaByDay")
-    public ResponseEntity<TarefaDto> getTarefaByDay(@RequestParam("date")
+    public ResponseEntity<List<TarefaDto>> getTarefaByDay(@RequestParam("date")
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date) {
         List<TarefaModel> tarefaModel = (tarefaService.findByDate(date.atZone(ZoneId.systemDefault()).toLocalDateTime()));
         Integer dia = date.getDayOfMonth();
         tarefaModel.stream()
-            .filter(tarefa -> tarefa.getdata().getDayOfMonth() == dia)
+            .filter(tarefa -> tarefa.getData().getDayOfMonth() == dia)
             .forEach(System.out::println);
-        return ResponseEntity.ok().body(TarefaRestFactory.toDto(tarefaModel.listIterator().next()));
+        return ResponseEntity.ok().body(tarefaModel.stream()
+            .map(TarefaRestFactory::toDto)
+            .collect(Collectors.toList()));
+    }
 
+        @GetMapping(path = "/getTarefaByWeek")
+    public ResponseEntity<List<TarefaDto>> getTarefaByWeek(@RequestParam("date")
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date) {
+        List<TarefaModel> tarefaModel = (tarefaService.findAllDatas());
+        // Regras da localidade (ex: Brasil começa a semana na segunda)
+        WeekFields weekFields = WeekFields.of(Locale.getDefault());
+        int semana = date.get(weekFields.weekOfWeekBasedYear());
+        // Filtra as tarefas pela semana
+        return ResponseEntity.ok().body(tarefaModel.stream()
+            .filter(tarefa -> tarefa.getData().get(weekFields.weekOfWeekBasedYear()) == semana)
+            .map(TarefaRestFactory::toDto)
+            .collect(Collectors.toList()));
+    }
+
+        @GetMapping(path = "/getTarefaByMonth")
+    public ResponseEntity<List<TarefaDto>> getTarefaByMonth(@RequestParam("date")
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date) {
+        List<TarefaModel> tarefaModel = (tarefaService.findAllDatas());
+        Integer mes = date.getMonthValue();
+        return ResponseEntity.ok().body(tarefaModel.stream()
+            .filter(tarefa -> tarefa.getData().getMonthValue() == mes)
+            .map(TarefaRestFactory::toDto)
+            .collect(Collectors.toList()));
     }
     
 

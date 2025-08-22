@@ -1,7 +1,10 @@
 package com.example.demo.controller.factory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Component;
 
@@ -16,7 +19,7 @@ public class TarefaRestFactory {
        
        dto.setNome(tarefaModel.get().getNome());
        dto.setDescricao(tarefaModel.get().getDescricao());
-       dto.setData(tarefaModel.get().getdata());
+       dto.setData(tarefaModel.get().getData());
        dto.setDuracao(tarefaModel.get().getDuracao());
        dto.setCriado(tarefaModel.get().getCriado());
        dto.setCompleto(tarefaModel.get().getCompleto());
@@ -29,7 +32,7 @@ public class TarefaRestFactory {
        
        dto.setNome(tarefaModel.getNome());
        dto.setDescricao(tarefaModel.getDescricao());
-       dto.setData(tarefaModel.getdata());
+       dto.setData(tarefaModel.getData());
        dto.setDuracao(tarefaModel.getDuracao());
        dto.setCriado(tarefaModel.getCriado());
        dto.setCompleto(tarefaModel.getCompleto());
@@ -42,7 +45,7 @@ public class TarefaRestFactory {
 
         entity.setNome(tarefaDto.getNome());
         entity.setDescricao(tarefaDto.getDescricao());
-        entity.setdata(tarefaDto.getData());
+        entity.setData(tarefaDto.getData());
         entity.setDuracao(tarefaDto.getDuracao());
         entity.setCriado(tarefaDto.getCriado());
         entity.setCompleto(tarefaDto.getCompleto());
@@ -56,7 +59,7 @@ public class TarefaRestFactory {
 
         entity.setNome(tarefaDto.get().getNome());
         entity.setDescricao(tarefaDto.get().getDescricao());
-        entity.setdata(tarefaDto.get().getData());
+        entity.setData(tarefaDto.get().getData());
         entity.setDuracao(tarefaDto.get().getDuracao());
         entity.setCriado(tarefaDto.get().getCriado());
         entity.setCompleto(tarefaDto.get().getCompleto());
@@ -65,15 +68,12 @@ public class TarefaRestFactory {
 
     }
 
-    public static TarefaDto toDto(List<TarefaModel> tarefaModel) {
-       TarefaDto dto = new TarefaDto();
+    public static List<TarefaDto> toDto(List<TarefaModel> tarefaModel) {
+       List<TarefaDto> dto = new ArrayList<>();
        
-       dto.setNome(tarefaModel.get(0).getNome());
-       dto.setDescricao(tarefaModel.get(0).getDescricao());
-       dto.setData(tarefaModel.get(0).getdata());   
-       dto.setDuracao(tarefaModel.get(0).getDuracao());
-       dto.setCriado(tarefaModel.get(0).getCriado());
-       dto.setCompleto(tarefaModel.get(0).getCompleto());
+       dto.stream()
+            .map(tarefa -> new TarefaDto(tarefa.getNome(), tarefa.getDescricao(), tarefa.getData(), tarefa.getDuracao(), tarefa.getCriado(), tarefa.getCompleto()))
+            .collect(Collectors.toList());
 
         return dto;
     }    

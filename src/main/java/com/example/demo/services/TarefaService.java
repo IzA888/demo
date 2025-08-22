@@ -55,4 +55,13 @@ public class TarefaService {
         }
     }
 
+    public List<TarefaModel> findAllDatas() {
+        List<TarefaModel> lista = tarefaRepository.findAll();
+        if (!lista.isEmpty()) {
+            return lista;
+        }else {
+            System.out.println("Tarefa não encontrada" );
+            return List.of();
+        }
+    }
 }

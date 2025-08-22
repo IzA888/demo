@@ -86,11 +86,11 @@ public class TarefaModel implements Serializable {
         this.descricao = descricao;
     }
 
-    public LocalDateTime getdata() {
+    public LocalDateTime getData() {
         return data;
     }
 
-    public void setdata(LocalDateTime data) {
+    public void setData(LocalDateTime data) {
         this.data = data;
     }
 
