@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Dto.TarefaDto;
 import com.example.demo.controller.factory.TarefaRestFactory;
 import com.example.demo.model.TarefaModel;
+import com.example.demo.model.UserModel;
 import com.example.demo.repository.TarefaRepository;
 import com.example.demo.services.TarefaService;
 
@@ -63,12 +65,6 @@ public class TarefaController<UUID> {
         return ResponseEntity.status(HttpStatus.CREATED).body(TarefaRestFactory.toDto(tarefaService.save(tarefaModel)));
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<TarefaDto> getTarefa(@PathVariable Long id){
-//        return ResponseEntity.ok().body(TarefaRestFactory.toDto(tarefaService.findById(id)));
-//    }
-
-
     @GetMapping("{nome}")
     public ResponseEntity<TarefaDto> getTarefaNome(@PathVariable String nome) {
         return ResponseEntity.ok().body(TarefaRestFactory.toDto(tarefaService.findTarefaByNome(nome))) ;
@@ -87,7 +83,7 @@ public class TarefaController<UUID> {
             .collect(Collectors.toList()));
     }
 
-        @GetMapping(path = "/getTarefaByWeek")
+    @GetMapping(path = "/getTarefaByWeek")
     public ResponseEntity<List<TarefaDto>> getTarefaByWeek(@RequestParam("date")
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date) {
         List<TarefaModel> tarefaModel = (tarefaService.findAllDatas());
@@ -101,7 +97,7 @@ public class TarefaController<UUID> {
             .collect(Collectors.toList()));
     }
 
-        @GetMapping(path = "/getTarefaByMonth")
+    @GetMapping(path = "/getTarefaByMonth")
     public ResponseEntity<List<TarefaDto>> getTarefaByMonth(@RequestParam("date")
         @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime date) {
         List<TarefaModel> tarefaModel = (tarefaService.findAllDatas());
@@ -111,6 +107,15 @@ public class TarefaController<UUID> {
             .map(TarefaRestFactory::toDto)
             .collect(Collectors.toList()));
     }
+
+    @GetMapping(path = "/allTarefas")
+    public ResponseEntity<List<TarefaDto>> getAllTarefas() {
+        List<TarefaModel> allTarefas = tarefaService.getTarefasdeUsuarioLogado();
+        return ResponseEntity.ok().body(allTarefas.stream()
+            .map(TarefaRestFactory::toDto)
+            .collect(Collectors.toList()));
+    }
+    
     
 
     @PutMapping("/{id}")
@@ -126,32 +131,6 @@ public class TarefaController<UUID> {
         }
         return ResponseEntity.ok("APAGADO");
         
-    }
-
-    @GetMapping("/agora")
-    public String getMethodName() {
-        Locale brasil = new Locale("pt", "BR");
-        TimeZone zonaSaoPaulo = TimeZone.getTimeZone("America/Sao_Paulo");
-        Calendar rightNow = Calendar.getInstance(zonaSaoPaulo);
-        return rightNow.getTime().toString();
-    }
-
-    @GetMapping("/mes")
-    public String getMethodName2() {
-        Locale brasil = new Locale("pt", "BR");
-        TimeZone zonaSaoPaulo = TimeZone.getTimeZone("America/Sao_Paulo");
-        Calendar mes = Calendar.getInstance(zonaSaoPaulo);
-        mes.getTime();
-        return mes.getDisplayName(Calendar.MONTH, Calendar.LONG, brasil).toString();
-    }
-
-    @GetMapping("/dia")
-    public String getMethodName3() {
-        Locale brasil = new Locale("pt", "BR");
-        TimeZone zonaSaoPaulo = TimeZone.getTimeZone("America/Sao_Paulo");
-        Calendar dia = Calendar.getInstance(zonaSaoPaulo);
-        dia.getTime();
-        return dia.getDisplayName(Calendar.DAY_OF_MONTH, Calendar.LONG, brasil);
     }
     
     

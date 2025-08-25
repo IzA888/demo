@@ -41,9 +41,8 @@ public class UserModel implements UserDetails, Serializable {
         this.senha = senha;
     }
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<TarefaModel> tarefas = new HashSet<>();
+    private Set<TarefaModel> tarefas;
 
     @Override
     public String getPassword() {

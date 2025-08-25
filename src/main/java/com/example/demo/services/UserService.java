@@ -3,10 +3,14 @@ package com.example.demo.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.demo.model.TarefaModel;
 import com.example.demo.model.UserModel;
 import com.example.demo.repository.UserRepository;
 
@@ -19,8 +23,8 @@ public class UserService implements UserDetailsService{
     UserRepository userRepository;
 
     @Transactional
-    public UserModel save(UserModel UserModel) {
-        return userRepository.save(UserModel);
+    public UserModel save(UserModel userModel) {
+        return userRepository.save(userModel);
     }
 
     public Optional<UserModel> findById(Long id) {
@@ -49,5 +53,17 @@ public class UserService implements UserDetailsService{
         return new BCryptPasswordEncoder().encode(password);
     }
 
-    
+    public UserModel getAuthenticatedUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+
+        return userRepository.findByUsername(username)
+            .orElseThrow(() -> new RuntimeException("Usuário não encontrado: " + username));
+
+    }
+
+    public Long getAuthenticatedUserId() {
+        return getAuthenticatedUser().getId();
+    }
+
 }

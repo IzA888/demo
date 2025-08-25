@@ -34,13 +34,11 @@ public class WebSecurityConfiguration {
     @Autowired
     private UserService userService;
 
-    private final UserDetailsService userDetailsService = null;
-
     private final JwtUtil jwtUtil = new JwtUtil();
     
     @Bean
-    public JwtAuthFilter JwtAuthFilter(UserDetailsService userDetailsService, JwtUtil jwtUtil) {
-        return new JwtAuthFilter(userDetailsService, jwtUtil);
+    public JwtAuthFilter JwtAuthFilter(UserService userService, JwtUtil jwtUtil) {
+        return new JwtAuthFilter(userService, jwtUtil);
     }
 
     @Bean
@@ -52,10 +50,10 @@ public class WebSecurityConfiguration {
                 .requestMatchers("/login").permitAll() // Allow access to /login without authentication
                 .requestMatchers("/tarefa/**").authenticated() // Require authentication for /tarefa/**
                 .requestMatchers("/user/**").authenticated() // Require authentication for /user/**
-                //.anyRequest().permitAll() // Allow all requests without authentication
+                .anyRequest().authenticated()
             )
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .addFilterBefore(JwtAuthFilter(userDetailsService(), jwtUtil), UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(JwtAuthFilter(userService, jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

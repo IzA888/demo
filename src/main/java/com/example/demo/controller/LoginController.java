@@ -1,6 +1,9 @@
 package com.example.demo.controller;
 
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Dto.UserDto;
 import com.example.demo.controller.factory.UserRestFactory;
 import com.example.demo.model.UserModel;
+import com.example.demo.security.JwtUtil;
 import com.example.demo.services.UserService;
 
 @RestController
@@ -17,6 +21,9 @@ import com.example.demo.services.UserService;
 public class LoginController {
 
     private final UserService userService;
+
+    private final JwtUtil jwtUtil = new JwtUtil();
+
 
     public LoginController(UserService userService) {
         this.userService = userService;
@@ -36,7 +43,8 @@ public class LoginController {
         } else {
             return ResponseEntity.status(404).body("User not found");
         }
-        return ResponseEntity.ok("Login successful for user: " + user.getUsername());
+        String token = jwtUtil.generateToken(userService.loadUserByUsername(user.getUsername()));
+        return ResponseEntity.ok("Login successful, authentication token: " + token);
     }
     
 }

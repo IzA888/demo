@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.TarefaModel;
+import com.example.demo.model.UserModel;
 import com.example.demo.repository.TarefaRepository;
 
 import jakarta.transaction.Transactional;
@@ -18,11 +19,20 @@ import jakarta.transaction.Transactional;
 public class TarefaService {
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     TarefaRepository tarefaRepository;
+
 
     @Transactional
     public TarefaModel save(TarefaModel tarefaModel) {
+        tarefaModel.setUser(userService.getAuthenticatedUser());
         return tarefaRepository.save(tarefaModel);
+    }
+
+    public List<TarefaModel> getTarefasdeUsuarioLogado() {
+        return tarefaRepository.findByUser(userService.getAuthenticatedUser()).stream().toList();
     }
 
     public Optional<TarefaModel> findById(Long id) {

@@ -1,35 +1,41 @@
 package com.example.demo.security;
 
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.util.Date;
 
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
+import com.example.demo.model.UserModel;
+
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 
 @Component
 public class JwtUtil {
 
-    private final String secretKey = "chavesecreta";
+    private final String secret= "chave_super_super_super_super_secreta"; 
+    private final Key secretKey = Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8)); 
     private final Long expirationTime = 86400000L; // 1 day in milliseconds
 
     // Implement JWT utility methods here, such as token generation and validation
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(UserModel userModel) {
         // Logic to generate JWT token
         return Jwts.builder()
-                .setSubject(userDetails.getUsername())
+                .setSubject(userModel.getUsername())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + expirationTime))
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }
 
-    public boolean validateToken(String token, UserDetails userDetails) {
+    public boolean validateToken(String token, UserModel userModel) {
         // Logic to validate JWT token
         String username = getUsernameFromToken(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        return (username.equals(userModel.getUsername()) && !isTokenExpired(token));
     }
 
     public boolean isTokenExpired(String token) {
