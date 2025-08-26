@@ -1,0 +1,33 @@
+-- Inserindo 6 usuários
+[
+  {
+    "nome": "Fulano da Silva",
+    "username": "fulano1",
+    "senha": "1234"
+  },
+  {
+    "nome": "Maria Oliveira",
+    "username": "maria2",
+    "senha": "abcd"
+  },
+  {
+    "nome": "João Santos",
+    "username": "joao3",
+    "senha": "senha123"
+  },
+  {
+    "nome": "Ana Souza",
+    "username": "ana4",
+    "senha": "pass456"
+  },
+  {
+    "nome": "Carlos Pereira",
+    "username": "carlos5",
+    "senha": "teste789"
+  },
+  {
+    "nome": "Beatriz Lima",
+    "username": "bia6",
+    "senha": "4321"
+  }
+]

@@ -26,9 +26,6 @@ public class TarefaDto {
     private LocalDateTime data;
     
     private Double duracao;
-    
-    @Size(max = 8)
-    private String criado;
 
     private Boolean completo;
 

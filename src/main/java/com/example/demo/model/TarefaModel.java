@@ -31,6 +31,7 @@ public class TarefaModel implements Serializable {
     @Column(name = "duracao")
     private Double duracao;
     
+    @CreationTimestamp
     @Column(name = "dt_criacao")
     private String criado;
 

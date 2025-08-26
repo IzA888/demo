@@ -1,0 +1,243 @@
+-- Inserindo 30 tarefas
+[
+  {
+    "nome": "Tarefa01",
+    "descricao": "Descrição da tarefa 01",
+    "data": "2025-08-01T00:00:00",
+    "duracao": 2,
+    "criado": null,
+    "completo": "false"
+  },
+  {
+    "nome": "Tarefa02",
+    "descricao": "Descrição da tarefa 02",
+    "data": "2025-08-02T00:00:00",
+    "duracao": 1,
+    "criado": null,
+    "completo": "false"
+  },
+  {
+    "nome": "Tarefa03",
+    "descricao": "Descrição da tarefa 03",
+    "data": "2025-08-03T00:00:00",
+    "duracao": 3,
+    "criado": null,
+    "completo": "true"
+  },
+  {
+    "nome": "Tarefa04",
+    "descricao": "Descrição da tarefa 04",
+    "data": "2025-08-04T00:00:00",
+    "duracao": 2,
+    "criado": null,
+    "completo": "false"
+  },
+  {
+    "nome": "Tarefa05",
+    "descricao": "Descrição da tarefa 05",
+    "data": "2025-08-05T00:00:00",
+    "duracao": 5,
+    "criado": null,
+    "completo": "false"
+  },
+  {
+    "nome": "Tarefa06",
+    "descricao": "Descrição da tarefa 06",
+    "data": "2025-08-05T00:00:00",
+    "duracao": 4,
+    "criado": null,
+    "completo": "true"
+  },
+  {
+    "nome": "Tarefa07",
+    "descricao": "Descrição da tarefa 07",
+    "data": "2025-08-05T00:00:00",
+    "duracao": 6,
+    "criado": null,
+    "completo": "false"
+  },
+  {
+    "nome": "Tarefa08",
+    "descricao": "Descrição da tarefa 08",
+    "data": "2025-08-06T00:00:00",
+    "duracao": 3,
+    "criado": null,
+    "completo": "true"
+  },
+  {
+    "nome": "Tarefa09",
+    "descricao": "Descrição da tarefa 09",
+    "data": "2025-08-07T00:00:00",
+    "duracao": 2,
+    "criado": null,
+    "completo": "false"
+  },
+  {
+    "nome": "Tarefa10",
+    "descricao": "Descrição da tarefa 10",
+    "data": "2025-08-08T00:00:00",
+    "duracao": 7,
+    "criado": null,
+    "completo": "true"
+  },
+  {
+    "nome": "Tarefa11",
+    "descricao": "Descrição da tarefa 11",
+    "data": "2025-08-09T00:00:00",
+    "duracao": 3,
+    "criado": null,
+    "completo": "false"
+  },
+  {
+    "nome": "Tarefa12",
+    "descricao": "Descrição da tarefa 12",
+    "data": "2025-08-10T00:00:00",
+    "duracao": 1,
+    "criado": null,
+    "completo": "true"
+  },
+  {
+    "nome": "Tarefa13",
+    "descricao": "Descrição da tarefa 13",
+    "data": "2025-08-11T00:00:00",
+    "duracao": 5,
+    "criado": null,
+    "completo": "false"
+  },
+  {
+    "nome": "Tarefa14",
+    "descricao": "Descrição da tarefa 14",
+    "data": "2025-08-12T00:00:00",
+    "duracao": 2,
+    "criado": null,
+    "completo": "true"
+  },
+  {
+    "nome": "Tarefa15",
+    "descricao": "Descrição da tarefa 15",
+    "data": "2025-08-13T00:00:00",
+    "duracao": 4,
+    "criado": null,
+    "completo": "false"
+  },
+  {
+    "nome": "Tarefa16",
+    "descricao": "Descrição da tarefa 16",
+    "data": "2025-08-14T00:00:00",
+    "duracao": 3,
+    "criado": null,
+    "completo": "false"
+  },
+  {
+    "nome": "Tarefa17",
+    "descricao": "Descrição da tarefa 17",
+    "data": "2025-08-15T00:00:00",
+    "duracao": 6,
+    "criado": null,
+    "completo": "true"
+  },
+  {
+    "nome": "Tarefa18",
+    "descricao": "Descrição da tarefa 18",
+    "data": "2025-08-15T00:00:00",
+    "duracao": 2,
+    "criado": null,
+    "completo": "false"
+  },
+  {
+    "nome": "Tarefa19",
+    "descricao": "Descrição da tarefa 19",
+    "data": "2025-08-15T00:00:00",
+    "duracao": 1,
+    "criado": null,
+    "completo": "false"
+  },
+  {
+    "nome": "Tarefa20",
+    "descricao": "Descrição da tarefa 20",
+    "data": "2025-08-16T00:00:00",
+    "duracao": 3,
+    "criado": null,
+    "completo": "true"
+  },
+  {
+    "nome": "Tarefa21",
+    "descricao": "Descrição da tarefa 21",
+    "data": "2025-08-17T00:00:00",
+    "duracao": 4,
+    "criado": null,
+    "completo": "false"
+  },
+  {
+    "nome": "Tarefa22",
+    "descricao": "Descrição da tarefa 22",
+    "data": "2025-08-18T00:00:00",
+    "duracao": 2,
+    "criado": null,
+    "completo": "true"
+  },
+  {
+    "nome": "Tarefa23",
+    "descricao": "Descrição da tarefa 23",
+    "data": "2025-08-19T00:00:00",
+    "duracao": 1,
+    "criado": null,
+    "completo": "false"
+  },
+  {
+    "nome": "Tarefa24",
+    "descricao": "Descrição da tarefa 24",
+    "data": "2025-08-20T00:00:00",
+    "duracao": 3,
+    "criado": null,
+    "completo": "true"
+  },
+  {
+    "nome": "Tarefa25",
+    "descricao": "Descrição da tarefa 25",
+    "data": "2025-08-21T00:00:00",
+    "duracao": 2,
+    "criado": null,
+    "completo": "false"
+  },
+  {
+    "nome": "Tarefa26",
+    "descricao": "Descrição da tarefa 26",
+    "data": "2025-08-22T00:00:00",
+    "duracao": 6,
+    "criado": null,
+    "completo": "true"
+  },
+  {
+    "nome": "Tarefa27",
+    "descricao": "Descrição da tarefa 27",
+    "data": "2025-08-23T00:00:00",
+    "duracao": 4,
+    "criado": null,
+    "completo": "false"
+  },
+  {
+    "nome": "Tarefa28",
+    "descricao": "Descrição da tarefa 28",
+    "data": "2025-08-24T00:00:00",
+    "duracao": 3,
+    "criado": null,
+    "completo": "true"
+  },
+  {
+    "nome": "Tarefa29",
+    "descricao": "Descrição da tarefa 29",
+    "data": "2025-08-25T00:00:00",
+    "duracao": 1,
+    "criado": null,
+    "completo": "false"
+  },
+  {
+    "nome": "Tarefa30",
+    "descricao": "Descrição da tarefa 30",
+    "data": "2025-08-25T00:00:00",
+    "duracao": 5,
+    "criado": null,
+    "completo": "false"
+  }
+]

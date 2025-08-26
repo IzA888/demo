@@ -3,27 +3,27 @@ package com.example.demo.services;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.model.TarefaModel;
 import com.example.demo.model.UserModel;
 import com.example.demo.repository.UserRepository;
 
 import jakarta.transaction.Transactional;
 
 @Service
-public class UserService implements UserDetailsService{
+public class UserService{
 
     @Autowired
     UserRepository userRepository;
 
+    BCryptPasswordEncoder passwordEncoder;
+
     @Transactional
     public UserModel save(UserModel userModel) {
+        userModel.setSenha(passwordEncoder.encode(userModel.getSenha()));
         return userRepository.save(userModel);
     }
 
@@ -31,7 +31,6 @@ public class UserService implements UserDetailsService{
         return userRepository.findById(id);
     }
 
-    @Override
     public UserModel loadUserByUsername(String username) {
         return userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found: " + username));
@@ -47,10 +46,6 @@ public class UserService implements UserDetailsService{
 
     public Boolean passwordMatches(String rawPassword, String encodedPassword) {
         return new BCryptPasswordEncoder().matches(rawPassword, encodedPassword);
-    }
-
-    public Object encodePassword(String password) {
-        return new BCryptPasswordEncoder().encode(password);
     }
 
     public UserModel getAuthenticatedUser() {

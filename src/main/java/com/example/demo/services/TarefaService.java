@@ -30,7 +30,6 @@ public class TarefaService {
     @Transactional
     public TarefaModel save(TarefaModel tarefaModel) {
         tarefaModel.setUser(userService.getAuthenticatedUser());
-        tarefaModel.setCriado(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").withZone(ZoneId.systemDefault()).format(LocalDateTime.now()));
         return tarefaRepository.save(tarefaModel);
     }
 

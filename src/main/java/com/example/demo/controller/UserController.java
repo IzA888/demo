@@ -36,7 +36,6 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserDto> createUser(@RequestBody @Valid UserDto userDto) {
         UserModel userModel = UserRestFactory.toEntity(userDto);
-        userModel.setSenha(userService.encodePassword(userModel.getPassword()).toString());
         return ResponseEntity.status(HttpStatus.CREATED).body(UserRestFactory.toDto(userService.save(userModel))) ;
     }
 
