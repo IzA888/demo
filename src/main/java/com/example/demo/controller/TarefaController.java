@@ -54,11 +54,6 @@ public class TarefaController<UUID> {
         this.tarefaRepository = tarefaRepository;
     }
 
-
-//    public tarefaController(TarefaService tarefaService) {
-//        this.tarefaService = TarefaService;
-//    } construtor
-
     @PostMapping
     public ResponseEntity<TarefaDto> postTarefa(@RequestBody @Valid TarefaDto tarefaDto) {
         TarefaModel tarefaModel = TarefaRestFactory.toEntity(tarefaDto);
