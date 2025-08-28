@@ -60,8 +60,13 @@ public class TarefaController<UUID> {
         return ResponseEntity.status(HttpStatus.CREATED).body(TarefaRestFactory.toDto(tarefaService.save(tarefaModel)));
     }
 
-    @GetMapping("{nome}")
-    public ResponseEntity<TarefaDto> getTarefaNome(@PathVariable String nome) {
+    @GetMapping("{id}")
+    public ResponseEntity<TarefaDto> getById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(TarefaRestFactory.toDto(tarefaService.findById(id))) ;
+    }
+
+    @GetMapping(path = "{nome}")
+    public ResponseEntity<TarefaDto> getTarefaNome(@RequestParam("nome") String nome) {
         return ResponseEntity.ok().body(TarefaRestFactory.toDto(tarefaService.findTarefaByNome(nome))) ;
     }
 

@@ -22,7 +22,7 @@ public class UserDto {
     @Size(min = 4)
     private String senha;
 
-    private Long id_tarefa;
+
 
 }
 
