@@ -1,21 +1,16 @@
 package com.example.demo.controller;
 
-import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.temporal.WeekFields;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Dto.TarefaDto;
 import com.example.demo.controller.factory.TarefaRestFactory;
 import com.example.demo.model.TarefaModel;
-import com.example.demo.model.UserModel;
 import com.example.demo.repository.TarefaRepository;
 import com.example.demo.services.TarefaService;
 
@@ -39,7 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/tarefa")
-public class TarefaController<UUID> {
+public class TarefaController {
 
     private final TarefaRepository tarefaRepository;
 
@@ -65,7 +59,7 @@ public class TarefaController<UUID> {
         return ResponseEntity.ok().body(TarefaRestFactory.toDto(tarefaService.findById(id))) ;
     }
 
-    @GetMapping(path = "{nome}")
+    @GetMapping(path = "/nome")
     public ResponseEntity<TarefaDto> getTarefaNome(@RequestParam("nome") String nome) {
         return ResponseEntity.ok().body(TarefaRestFactory.toDto(tarefaService.findTarefaByNome(nome))) ;
     }
@@ -126,7 +120,7 @@ public class TarefaController<UUID> {
 
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteTarefa(@PathVariable Long id) {
-        if(tarefaRepository.equals(id)){
+        if(tarefaRepository.getReferenceById(id) != null){
             tarefaService.delete(id);
         }
         return ResponseEntity.ok("APAGADO");

@@ -1,11 +1,9 @@
 package com.example.demo.Dto;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import org.springframework.validation.annotation.Validated;
 
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -6,13 +6,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
-import javax.print.attribute.standard.DateTimeAtCreation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.TarefaModel;
-import com.example.demo.model.UserModel;
 import com.example.demo.repository.TarefaRepository;
 
 import jakarta.transaction.Transactional;
