@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Dto.UserDto;
+import com.example.demo.controller.factory.TarefaRestFactory;
 import com.example.demo.controller.factory.UserRestFactory;
 import com.example.demo.model.UserModel;
 import com.example.demo.services.UserService;
@@ -25,13 +26,6 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    private final UserRestFactory userRestFactory;
-
-    public UserController(UserService userService, UserRestFactory userRestFactory) {
-        this.userService = userService;
-        this.userRestFactory = userRestFactory;
-    }
-
     @PostMapping
     public ResponseEntity<UserDto> createUser(@RequestBody @Valid UserDto userDto) {
         UserModel userModel = UserRestFactory.toEntity(userDto);
@@ -40,9 +34,7 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<UserDto> getUser(@PathVariable Long id) {
-        return userService.findById(id)
-                .map(userModel -> ResponseEntity.ok(UserRestFactory.toDto(userModel)))
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok().body(UserRestFactory.toDto(userService.findById(id))) ;
     }
 
     @DeleteMapping("/{id}")

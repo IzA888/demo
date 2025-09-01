@@ -8,7 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.example.demo.services.UserService;
+import com.example.demo.services.AuthService;
 
 import java.io.IOException;
 
@@ -24,10 +24,10 @@ public class JwtAuthFilter extends OncePerRequestFilter {
     private JwtUtil jwtUtil;
 
     @Autowired
-    private UserService userService;
+    private AuthService authService;
 
-    public JwtAuthFilter(UserService userService, JwtUtil jwtUtil) {
-        this.userService = userService;
+    public JwtAuthFilter(AuthService authService, JwtUtil jwtUtil) {
+        this.authService = authService;
         this.jwtUtil = jwtUtil;
     }
 
@@ -47,7 +47,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             }
             
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                if( jwtUtil.validateToken(jwt, userService.loadUserByUsername(username))) {
+                if( jwtUtil.validateToken(jwt, authService.loadUserByUsername(username))) {
                     UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, null, List.of());
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 }

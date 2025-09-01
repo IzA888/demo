@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.example.demo.model.UserModel;
 import com.example.demo.security.JwtUtil;
-import com.example.demo.services.UserService;
+import com.example.demo.services.AuthService;
 import com.example.demo.security.JwtAuthFilter;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -28,15 +28,15 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 @EnableWebSecurity
 public class WebSecurityConfiguration {
 
-    // Inject your user service here (make sure UserService and UserModel are defined in your project)
+    // Inject your user service here (make sure authService and UserModel are defined in your project)
     @Autowired
-    private UserService userService;
+    private AuthService authService;
 
     private final JwtUtil jwtUtil = new JwtUtil();
     
     @Bean
-    public JwtAuthFilter JwtAuthFilter(UserService userService, JwtUtil jwtUtil) {
-        return new JwtAuthFilter(userService, jwtUtil);
+    public JwtAuthFilter JwtAuthFilter(AuthService authService, JwtUtil jwtUtil) {
+        return new JwtAuthFilter(authService, jwtUtil);
     }
 
     @Bean
@@ -51,7 +51,7 @@ public class WebSecurityConfiguration {
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .addFilterBefore(JwtAuthFilter(userService, jwtUtil), UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(JwtAuthFilter(authService, jwtUtil), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -67,7 +67,7 @@ public class WebSecurityConfiguration {
         return new UserDetailsService() {
             @Override
             public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-                UserModel user = userService.loadUserByUsername(username);
+                UserModel user = authService.loadUserByUsername(username);
                 if (user != null) {
                     return User.withUsername(user.getUsername())
                                .password(user.getPassword())

@@ -11,19 +11,19 @@ import com.example.demo.Dto.UserDto;
 import com.example.demo.controller.factory.UserRestFactory;
 import com.example.demo.model.UserModel;
 import com.example.demo.security.JwtUtil;
-import com.example.demo.services.UserService;
+import com.example.demo.services.AuthService;
 
 @RestController
 @RequestMapping("/login")
 public class LoginController {
 
-    private final UserService userService;
+    private final AuthService authService;
 
     private final JwtUtil jwtUtil = new JwtUtil();
 
 
-    public LoginController(UserService userService) {
-        this.userService = userService;
+    public LoginController(AuthService authService) {
+        this.authService = authService;
     }
 
     @PostMapping
@@ -33,14 +33,14 @@ public class LoginController {
         if (userModel.getUsername() == null || userModel.getPassword() == null) {
             return ResponseEntity.badRequest().body("Username and password must not be empty");
         }
-        if (userService.existsByUsername(user.getUsername())) {
-            if (!userService.passwordMatches(user.getSenha(), userService.loadUserByUsername(user.getUsername()).getPassword())) {
+        if (authService.existsByUsername(user.getUsername())) {
+            if (!authService.passwordMatches(user.getSenha(), authService.loadUserByUsername(user.getUsername()).getPassword())) {
                 return ResponseEntity.status(401).body("Invalid password");
             }
         } else {
             return ResponseEntity.status(404).body("User not found");
         }
-        String token = jwtUtil.generateToken(userService.loadUserByUsername(user.getUsername()));
+        String token = jwtUtil.generateToken(authService.loadUserByUsername(user.getUsername()));
         return ResponseEntity.ok("Login successful, authentication token: " + token);
     }
     

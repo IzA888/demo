@@ -35,18 +35,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/tarefa")
 public class TarefaController {
 
-    private final TarefaRepository tarefaRepository;
-
-    private final TarefaRestFactory tarefaRestFactory;
 
     @Autowired
     private TarefaService tarefaService;
 
 
-    TarefaController(TarefaRestFactory tarefaRestFactory, TarefaRepository tarefaRepository) {
-        this.tarefaRestFactory = tarefaRestFactory;
-        this.tarefaRepository = tarefaRepository;
-    }
 
     @PostMapping
     public ResponseEntity<TarefaDto> postTarefa(@RequestBody @Valid TarefaDto tarefaDto) {
@@ -120,7 +113,7 @@ public class TarefaController {
 
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteTarefa(@PathVariable Long id) {
-        if(tarefaRepository.getReferenceById(id) != null){
+        if(tarefaService.findById(id) != null){
             tarefaService.delete(id);
         }
         return ResponseEntity.ok("APAGADO");

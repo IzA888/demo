@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -20,8 +21,8 @@ public class TesteIntegracaoUser {
     @Autowired
     TestRestTemplate testRestTemplate;
 
-    @BeforeAll
-    void setupUsers() {
+    @Test
+    public void createUsers() {
         List<UserDto> users = DataTesteUser.generateUsers();
         
         for (UserDto userDto : users) {
