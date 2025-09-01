@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.demo.Dto.TarefaDto;
 import com.example.demo.controller.factory.TarefaRestFactory;
 import com.example.demo.model.TarefaModel;
-import com.example.demo.repository.TarefaRepository;
 import com.example.demo.services.TarefaService;
 
 import jakarta.validation.Valid;

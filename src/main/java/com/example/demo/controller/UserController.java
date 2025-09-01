@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Dto.UserDto;
-import com.example.demo.controller.factory.TarefaRestFactory;
 import com.example.demo.controller.factory.UserRestFactory;
 import com.example.demo.model.UserModel;
 import com.example.demo.services.UserService;
